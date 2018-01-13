@@ -1,1 +1,0 @@
-# calco-knowledge-lab-dev-ops

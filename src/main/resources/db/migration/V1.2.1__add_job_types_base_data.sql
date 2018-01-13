@@ -1,0 +1,12 @@
+INSERT INTO job_type values (12, 'Master Classer');
+INSERT INTO job_type values (1, 'Developer');
+INSERT INTO job_type values (2, 'Operator');
+INSERT INTO job_type values (3, 'DevOps');
+INSERT INTO job_type values (4, 'Tester');
+INSERT INTO job_type values (5, 'Analyst');
+INSERT INTO job_type values (6, 'PMO');
+INSERT INTO job_type values (7, 'Mangager');
+INSERT INTO job_type values (8, 'Agile coach');
+INSERT INTO job_type values (9, 'Scrum Master');
+INSERT INTO job_type values (10, 'Business Intelligence');
+INSERT INTO job_type values (11, 'DBA');
