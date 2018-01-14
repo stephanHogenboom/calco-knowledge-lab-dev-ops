@@ -2,4 +2,5 @@
 *target
 *.db
 *.iml
+*log*
 profiles.xml

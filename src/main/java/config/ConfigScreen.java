@@ -19,20 +19,22 @@ public class ConfigScreen {
 
     public HBox initConfigScreen() {
         layout = new HBox(5);
-        setConfigSummary();
 
         resetConfig = new Button("reset config");
         resetConfig.setOnAction(e -> {
             configCache.resetRegistryCache();
             setConfigSummary();
+
         });
+
         bar.getChildren().addAll(resetConfig);
-        layout.getChildren().addAll(configSummary, bar);
+        setConfigSummary();
+
 
         return layout;
     }
 
-    private void setConfigSummary() {
+    public void setConfigSummary() {
         VBox vBox = new VBox();
         for (Map.Entry entry : configCache.getConfigCache().entrySet()) {
             HBox hBox = new HBox(10);
@@ -44,6 +46,8 @@ public class ConfigScreen {
             vBox.getChildren().add(hBox);
 
         }
+        layout.getChildren().removeAll(configSummary, bar);
         configSummary = vBox;
+        layout.getChildren().addAll(configSummary, bar);
     }
 }

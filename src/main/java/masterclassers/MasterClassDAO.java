@@ -27,7 +27,6 @@ public class MasterClassDAO extends GeneralDAO {
                 companies.add(company);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             System.out.println(e.getMessage());
         }
         return companies;
@@ -41,11 +40,9 @@ public class MasterClassDAO extends GeneralDAO {
                 Company company = new Company();
                 company.setOid(rs.getInt(1));
                 company.setName(rs.getString(2));
-                System.out.println("dao " + company);
                 return company;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             System.out.println(e.getMessage());
         }
         return null;
@@ -67,9 +64,8 @@ public class MasterClassDAO extends GeneralDAO {
             stmt.setInt(9, mc.getCompany().getOid());
             insertAddress(mc.getAddress());
             flag = stmt.execute();
-            System.out.printf("flag = %s \n", flag);
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return flag;
     }
@@ -95,7 +91,7 @@ public class MasterClassDAO extends GeneralDAO {
                 mcs.add(mc);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
             return mcs;
     }
@@ -111,7 +107,7 @@ public class MasterClassDAO extends GeneralDAO {
                 return jt;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return null;
     }
@@ -129,7 +125,6 @@ public class MasterClassDAO extends GeneralDAO {
                 jobs.add(jt);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             System.out.println(e.getMessage());
         }
         return jobs;
@@ -152,15 +147,14 @@ public class MasterClassDAO extends GeneralDAO {
                 return address;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            System.out.println(e.getMessage());
+    }
         return null;
     }
 
     private void insertAddress(Address address) {
         String sql = "Insert into address VALUES (?, ?, ?, ?, ?, ?, ?);";
         try (PreparedStatement stmnt = connection.prepareStatement(sql)) {
-            System.out.println(address);
             stmnt.setString(1, address.getKixCode());
             stmnt.setString(2, address.getCountry());
             stmnt.setString(3, address.getStreet());
@@ -168,9 +162,9 @@ public class MasterClassDAO extends GeneralDAO {
             stmnt.setString(5, address.getExtension());
             stmnt.setString(6, address.getPostalCode());
             stmnt.setString(7, address.getCity());
+            stmnt.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
 

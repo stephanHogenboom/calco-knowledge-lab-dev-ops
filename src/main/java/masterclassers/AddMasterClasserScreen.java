@@ -26,6 +26,7 @@ public class AddMasterClasserScreen {
     private Company calco = new Company(0, "Calco");
 
 
+
     public void display() {
         window = new Stage();
         window.setMinWidth(500);
@@ -104,6 +105,8 @@ public class AddMasterClasserScreen {
         }
         mc.setFullName(fullNameTextField.getText());
         mc.setAddress(validateAndSetAddress());
+        //TODO if an email is provided it should be formatted correctly -> <front>@<back>.<domain>
+        //TODo the last part of the email adrres should be between 2 and 6 characters
         mc.setEmail(emailText.getText() == null ? "" : emailText.getText());
         mc.setTelephoneNumber(fullNameTextField.getText() == null ? "" : fullNameTextField.getText());
         mc.setStartDate(LocalDate.now());
@@ -137,7 +140,7 @@ public class AddMasterClasserScreen {
             }
         }
 
-        // postal code should match "\d{4}"
+        // TODO postal code should match the format NNNNAA for example 2265GH
         String postalCodeText = postalCode.getText().toUpperCase();
 
         AddressBuilder bldr = new AddressBuilder();

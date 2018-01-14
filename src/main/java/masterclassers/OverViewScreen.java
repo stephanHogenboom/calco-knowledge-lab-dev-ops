@@ -1,21 +1,22 @@
 package masterclassers;
 
-import javafx.geometry.Insets;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import masterclassers.model.Address;
 import masterclassers.model.MasterClasser;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.List;
 
 
 public class OverViewScreen {
     private BorderPane layout;
-    private ListView<MasterClasser> masterClasserListView = new ListView<>();
+    private final ListView<MasterClasser> masterClasserListView = new ListView<>();
     private Button  addButton;
     private final VBox bar = new VBox();
     private final MasterClassDAO dao = new MasterClassDAO();
@@ -87,13 +88,13 @@ public class OverViewScreen {
 
         bar.getChildren().addAll(addButton);
         layout = new BorderPane();
-        layout.setLeft(masterClasserListView);
+        layout.setRight(masterClasserListView);
         layout.setCenter(mcInfo);
         layout.setBottom(bar);
         return layout;
     }
 
-    private void refreshMCS() {
+    public void refreshMCS() {
         List<MasterClasser> masterclassNames = dao.getAllMasterClassers();
         masterClasserListView.getItems().removeAll(masterClasserListView.getItems());
         masterClasserListView.getItems().addAll(masterclassNames);
@@ -108,12 +109,17 @@ public class OverViewScreen {
         address.setText(String.format( "%s %s%s , %s %s ",  addr.getStreet(), addr.getHouseNumber(),
                 addr.getExtension(), addr.getPostalCode(), addr.getCity()));
 
+
+        // TODO this code is very sloppy. Make a separate method to calculate income and profit
+        // TODO not all masterclassers generate same income the most increase their income by 250/ 3 months
+        // TODO however devops generate 350 more per 3 months and Managers & pmos 425 per 3 months
+
         int yearWorked = mc.getStartDate().until(LocalDate.now()).getYears();
         int monthsWorked = mc.getStartDate().until(LocalDate.now()).getMonths();
         int totalMonthsWorked = 12*yearWorked + monthsWorked;
         System.out.println(totalMonthsWorked);
         salary.setText(String.valueOf(2050 + (totalMonthsWorked>1? 50: 0) + 150 * totalMonthsWorked));
-        income.setText(String.valueOf(mc.getJobType().getOid() == 12? 0 : (4000 + totalMonthsWorked * 300)));
+        income.setText(String.valueOf(mc.getJobType().getOid() == 12? 0 : (4000 + (totalMonthsWorked / 3 ) * 250)));
         profit.setText(String.valueOf(Integer.parseInt(income.getText()) - Integer.parseInt(salary.getText())));
     }
 
