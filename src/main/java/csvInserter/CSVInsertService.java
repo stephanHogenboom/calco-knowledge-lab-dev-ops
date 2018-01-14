@@ -7,7 +7,7 @@ import masterclassers.model.*;
 
 import java.time.LocalDate;
 
-public class CSVInserter {
+public class CSVInsertService {
     private ConfigCache configCache = new ConfigCache();
     private MasterClassDAO dao = new MasterClassDAO();
 

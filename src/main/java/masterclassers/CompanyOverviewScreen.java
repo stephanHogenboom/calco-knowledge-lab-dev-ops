@@ -23,12 +23,12 @@ public class CompanyOverviewScreen {
     private BorderPane companyScreen = new BorderPane();
     private final ListView<Company> companies = new ListView();
     private final MasterClassDAO dao = new MasterClassDAO();
-    private final List<MasterClasser> mcs = dao.getAllMasterClassers();
+    private List<MasterClasser> mcs = dao.getAllMasterClassers();
     private final ListView<MasterClasser> masterClasserInThisCompany = new ListView<>();
     private final HBox addCompanyBox = new HBox(5);
     private final Button addCompany = new Button("addCompany");
     private final TextField companyName = new TextField("enter company name");
-    private final Button resfreshChart = new Button("refresh chart");
+    private  PieChart masterClasserOvertCompanies;
 
     public BorderPane initCompanyScreen() {
 
@@ -43,7 +43,7 @@ public class CompanyOverviewScreen {
         companyScreen.setLeft(companies);
         companyScreen.setCenter(masterClasserInThisCompany);
         companyScreen.setBottom(addCompanyBox);
-        PieChart masterClasserOvertCompanies = getMasterClasserOvertCompaniesPieCharet();
+        masterClasserOvertCompanies = getMasterClasserOvertCompaniesPieCharet();
 
 
         companyScreen.setRight(masterClasserOvertCompanies);
@@ -62,6 +62,12 @@ public class CompanyOverviewScreen {
         // get name from textfield
         // invoke dao -> database
         // dont forget to autoincrement oid
+    }
+
+    public void refresh() {
+        mcs = dao.getAllMasterClassers();
+        masterClasserOvertCompanies = getMasterClasserOvertCompaniesPieCharet();
+        companyScreen.setRight(masterClasserOvertCompanies);
     }
 
     private PieChart getMasterClasserOvertCompaniesPieCharet() {

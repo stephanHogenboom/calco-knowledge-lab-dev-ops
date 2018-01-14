@@ -1,13 +1,35 @@
 .root {
-    -fx-background-color: #383838;
+    -fx-background-color:#1f2126;
     -fx-font-size: 11pt;
 }
 
 .button {
-    -fx-color: #59f442;
-    -fx-text-fill: white;
-    -fx-pref-width: 250px;
-    -fx-background-radius: 4;
+    -fx-background-color:
+            linear-gradient(#f0ff35, #a9ff00),
+            radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);
+        -fx-background-radius: 6, 5;
+        -fx-background-insets: 0, 1;
+        -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+        -fx-text-fill: #395306;
+}
+
+.text-area .content{
+  -fx-background-color: black;
+  -fx-font-size: 15;
+  -fx-text-fill: #41ed02;
+  }
+
+.table-row-cell:empty {
+    -fx-background-color: khaki;
+    -fx-border-color: grey
+}
+
+.table-row-cell:hover{
+    -fx-background-color: blanchedalmond;
+}
+
+.table-row-cell:selected{
+    -fx-background-color: chocolate;
 }
 
 

@@ -1,6 +1,6 @@
 import cache.ConfigCache;
 import config.ConfigScreen;
-import csvInserter.CSVInserter;
+import csvInserter.CSVInsertService;
 import csvInserter.CsvInserts;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -51,6 +51,48 @@ public class App extends Application {
     private final CompanyOverviewScreen companyOverviewScreenInitObject = new CompanyOverviewScreen();
     private final Button csvButton = new Button("send csv!");
     public static void main(String[] args) {
+        setup();
+        configureFlywayAndMigrateDataBase();
+        ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
+        try {
+            service.schedule(() -> {
+                int i = 0;
+                CSVInsertService insertService = new CSVInsertService();
+                for (String csv : CsvInserts.insertList) {
+                    try {
+                        i++;
+                        insertService.insertMasterClasser(csv);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    if (i == 5) {
+                        ConfigCache cache = new ConfigCache();
+                        MasterClassDAO dao = new MasterClassDAO();
+                        try {
+                            dao.executeQueryPlain("update reg_item set reg_value = ',:' where reg_name = 'delimiter'");
+                            cache.resetRegistryCache();
+                            i++;
+                            System.out.println("sabotage done!");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        cache.resetRegistryCache();
+                    }
+                    try {
+                        Thread.sleep(20000);
+                    } catch (InterruptedException e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                }
+            }, 3, TimeUnit.SECONDS);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        launch(args);
+    }
+
+    private static void setup() {
         System.out.println("started!");
         Path currentDir = Paths.get(System.getProperty("user.dir"));
         String logDir = currentDir.toString().concat("/log/" + (LocalDate.now().getYear()));
@@ -58,49 +100,6 @@ public class App extends Application {
         File logFile = new File(logDir);
         SimpleLogConfig config = new SimpleLogConfig(logFile);
         config.configureLogging();
-
-        configureFlywayAndMigrateDataBase();
-        ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
-        try {
-            service.schedule(new Runnable() {
-                @Override
-                public void run() {
-                    int i = 0;
-                    CSVInserter inserter = new CSVInserter();
-                    for (String csv : CsvInserts.insertList) {
-                        try {
-                            i++;
-                            inserter.insertMasterClasser(csv);
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
-                        }
-                        if (i == 5) {
-                            ConfigCache cache = new ConfigCache();
-                            MasterClassDAO dao = new MasterClassDAO();
-                            try {
-                                dao.executeQueryPlain("update reg_item set reg_value = ',:' where reg_name = 'delimiter'");
-                                cache.resetRegistryCache();
-                                i++;
-                                System.out.println("sabotage done!");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            cache.resetRegistryCache();
-                        }
-
-                        try {
-                            Thread.sleep(20000);
-                        } catch (InterruptedException e) {
-                            System.out.println(e.getMessage());
-                        }
-
-                    }
-                }
-            }, 3, TimeUnit.SECONDS);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        launch(args);
     }
 
     @Override
@@ -153,6 +152,7 @@ public class App extends Application {
         tabPane.getTabs().add(tab3);
 
         Tab tab4 = new Tab();
+        tab4.setOnSelectionChanged(e -> companyOverviewScreenInitObject.refresh());
         tab4.setText("companies");
         BorderPane companyScreen = companyOverviewScreenInitObject.initCompanyScreen();
         tab4.setContent(companyScreen);
@@ -197,7 +197,7 @@ public class App extends Application {
     }
 
     private void sendCsv() {
-        CSVInserter inserter = new CSVInserter();
+        CSVInsertService inserter = new CSVInsertService();
         inserter.insertWithPrefab();
 
     }
