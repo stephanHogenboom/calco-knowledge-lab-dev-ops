@@ -24,6 +24,7 @@ public class ConfigScreen {
         resetConfig.setOnAction(e -> {
             configCache.resetRegistryCache();
             setConfigSummary();
+            AlertBox.display("succes", "Config reset!");
 
         });
 

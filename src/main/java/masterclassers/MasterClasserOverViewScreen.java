@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 
-public class OverViewScreen {
+public class MasterClasserOverViewScreen {
     private BorderPane layout;
     private final ListView<MasterClasser> masterClasserListView = new ListView<>();
     private Button  addButton;
@@ -113,12 +113,11 @@ public class OverViewScreen {
         // TODO this code is very sloppy. Make a separate method to calculate income and profit
         // TODO not all masterclassers generate same income the most increase their income by 250/ 3 months
         // TODO however devops generate 350 more per 3 months and Managers & pmos 425 per 3 months
-
+        System.out.printf("%s selected \n",mc.getFullName());
         int yearWorked = mc.getStartDate().until(LocalDate.now()).getYears();
         int monthsWorked = mc.getStartDate().until(LocalDate.now()).getMonths();
         int totalMonthsWorked = 12*yearWorked + monthsWorked;
-        System.out.println(totalMonthsWorked);
-        salary.setText(String.valueOf(2050 + (totalMonthsWorked>1? 50: 0) + 150 * totalMonthsWorked));
+        salary.setText(String.valueOf(2050 + (totalMonthsWorked>1? 50: 0) + (totalMonthsWorked > 24 ? 50 * 24 :  (150 * totalMonthsWorked / 3))));
         income.setText(String.valueOf(mc.getJobType().getOid() == 12? 0 : (4000 + (totalMonthsWorked / 3 ) * 250)));
         profit.setText(String.valueOf(Integer.parseInt(income.getText()) - Integer.parseInt(salary.getText())));
     }

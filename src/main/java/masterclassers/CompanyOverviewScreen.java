@@ -27,7 +27,7 @@ public class CompanyOverviewScreen {
     private final ListView<MasterClasser> masterClasserInThisCompany = new ListView<>();
     private final HBox addCompanyBox = new HBox(5);
     private final Button addCompany = new Button("addCompany");
-    private final TextField companyName = new TextField("enter company name");
+    private final TextField companyNameTextField = new TextField();
     private  PieChart masterClasserOvertCompanies;
 
     public BorderPane initCompanyScreen() {
@@ -39,27 +39,35 @@ public class CompanyOverviewScreen {
         //TODO insert method in masterclassDAO or other dao to add companies
         addCompany.setOnAction(e -> AlertBox.display("error", "not yet implemented!"));
 
-        addCompanyBox.getChildren().addAll(addCompany, companyName);
+        companyNameTextField.setMinWidth(250);
+        companyNameTextField.setPromptText("enter company name");
+        addCompanyBox.getChildren().addAll(addCompany, companyNameTextField);
         companyScreen.setLeft(companies);
         companyScreen.setCenter(masterClasserInThisCompany);
         companyScreen.setBottom(addCompanyBox);
         masterClasserOvertCompanies = getMasterClasserOvertCompaniesPieCharet();
-
+        masterClasserInThisCompany.getItems().add(new MasterClasser());
 
         companyScreen.setRight(masterClasserOvertCompanies);
         return companyScreen;
     }
 
     private void setMasterClassersView(Company company) {
-        List<MasterClasser> list = mcs.stream()
+        List<MasterClasser> list = dao
+                .getAllMasterClassers()
+                .stream()
                 .filter(mc -> mc.getCompany().getName().equals(company.getName()))
                 .collect(Collectors.toList());
-        masterClasserInThisCompany.getItems().removeAll(masterClasserInThisCompany.getItems());
+        masterClasserInThisCompany.getItems().clear();
+        if (list.isEmpty()) {
+            masterClasserInThisCompany.getItems().add(new MasterClasser());
+        }
         masterClasserInThisCompany.getItems().addAll(list);
     }
 
     private void insertCompany(Company company) {
         // get name from textfield
+        // write insertQuery in dao class
         // invoke dao -> database
         // dont forget to autoincrement oid
     }

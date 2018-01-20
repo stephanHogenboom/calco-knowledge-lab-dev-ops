@@ -3,6 +3,19 @@
     -fx-font-size: 11pt;
 }
 
+.chart-pie-label-line {
+    -fx-stroke: gold;
+}
+.chart-pie-label{
+    -fx-stroke: gold;
+}
+
+.chart-legend {
+   -fx-background-color :#1f2126;
+   -fx-stroke: gold;
+}
+
+
 .button {
     -fx-background-color:
             linear-gradient(#f0ff35, #a9ff00),
@@ -17,25 +30,21 @@
   -fx-background-color: black;
   -fx-font-size: 15;
   -fx-text-fill: #41ed02;
+  -fx-border-color: gold;
+  -fx-border-size: 5px;
   }
 
-.table-row-cell:empty {
-    -fx-background-color: khaki;
-    -fx-border-color: grey
+.cell {
+    -fx-background-color: black;
+    -fx-text-fill: #41ed02;
 }
 
-.table-row-cell:hover{
-    -fx-background-color: blanchedalmond;
-}
 
-.table-row-cell:selected{
-    -fx-background-color: chocolate;
-}
 
 
 .text-field {
-    -fx-background-color: #59f442;
-    -fx-text-fill: black;
+    -fx-background-color:grey;
+    -fx-text-fill:  #59f442;
     -fx-pref-width: 150px;
 }
 
@@ -43,10 +52,35 @@
     -fx-text-fill: black;
 }
 
+.tab {
+    -fx-background-color: black;
+    -fx-border-color: gold;
+    -fx-border-size: 5px;
+}
+
+
+
+.tab-label {
+    -fx-background-color: black;
+    -fx-text-fill: gold;
+}
+
 
 
 .label {
+
     -fx-font-weight: bold;
     -fx-font-size: 15px;
-    -fx-text-fill: white;
+    -fx-text-fill: #41ed02;
 }
+
+
+.tab-header-background {
+    -fx-background-color: #1f2126;
+    -fx-border-color: gold;
+}
+
+.tab-content-area {
+    -fx-border-color: gold;
+    -fx-border-size: 1px;
+    }

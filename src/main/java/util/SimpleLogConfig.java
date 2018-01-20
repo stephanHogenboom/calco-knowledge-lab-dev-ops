@@ -22,7 +22,7 @@ public class SimpleLogConfig {
                 System.out.println("directories created");
             }
             // set log dir according to current day
-            file = new File(file.getAbsolutePath()+"/" + LocalDate.now().getMonth().name()+LocalDate.now().getDayOfMonth());
+            file = new File(file.getAbsolutePath()+"/" + LocalDate.now().getMonth().name() + "-" + LocalDate.now().getDayOfMonth());
             FileOutputStream fos = new FileOutputStream(file);
             //we want to print in standard "System.out" and in "file"
             TeeOutputStream myOut=new TeeOutputStream(System.out, fos);
