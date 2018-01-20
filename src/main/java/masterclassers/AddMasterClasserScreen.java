@@ -92,7 +92,7 @@ public class AddMasterClasserScreen {
 
         vbox.getChildren().addAll(masterClasserBox, contactDetails, streetNameEntry, numberExtension, postalCode, city, buttonBar);
         Scene scene = new Scene(vbox);
-        scene.getStylesheets().addAll("addScreen.css");
+        scene.getStylesheets().addAll("index.css");
         window.setScene(scene);
         window.showAndWait();
     }
