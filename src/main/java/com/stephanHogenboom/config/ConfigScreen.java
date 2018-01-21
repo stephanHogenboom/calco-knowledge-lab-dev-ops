@@ -20,7 +20,7 @@ public class ConfigScreen {
     public HBox initConfigScreen() {
         layout = new HBox(5);
 
-        resetConfig = new Button("reset com.stephanHogenboom.config");
+        resetConfig = new Button("Reset configurations cache");
         resetConfig.setOnAction(e -> {
             configCache.resetRegistryCache();
             setConfigSummary();
