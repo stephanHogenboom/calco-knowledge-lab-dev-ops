@@ -1,4 +1,4 @@
-package masterclassers.model;
+package com.stephanHogenboom.masterclassers.model;
 
 import java.time.LocalDate;
 

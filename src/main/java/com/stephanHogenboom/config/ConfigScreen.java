@@ -1,7 +1,7 @@
-package config;
+package com.stephanHogenboom.config;
 
-import cache.ConfigCache;
-import elements.AlertBox;
+import com.stephanHogenboom.cache.ConfigCache;
+import com.stephanHogenboom.elements.AlertBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -20,7 +20,7 @@ public class ConfigScreen {
     public HBox initConfigScreen() {
         layout = new HBox(5);
 
-        resetConfig = new Button("reset config");
+        resetConfig = new Button("reset com.stephanHogenboom.config");
         resetConfig.setOnAction(e -> {
             configCache.resetRegistryCache();
             setConfigSummary();

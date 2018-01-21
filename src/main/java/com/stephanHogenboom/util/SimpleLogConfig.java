@@ -1,4 +1,4 @@
-package util;
+package com.stephanHogenboom.util;
 
 import org.apache.commons.io.output.TeeOutputStream;
 

@@ -1,6 +1,6 @@
-package cache;
+package com.stephanHogenboom.cache;
 
-import config.ConfigDAO;
+import com.stephanHogenboom.config.ConfigDAO;
 
 import java.util.HashMap;
 

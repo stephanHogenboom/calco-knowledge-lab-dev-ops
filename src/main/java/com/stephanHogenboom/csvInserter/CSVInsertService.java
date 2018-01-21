@@ -1,8 +1,8 @@
-package csvInserter;
+package com.stephanHogenboom.csvInserter;
 
-import cache.ConfigCache;
-import masterclassers.MasterClassDAO;
-import masterclassers.model.*;
+import com.stephanHogenboom.cache.ConfigCache;
+import com.stephanHogenboom.masterclassers.MasterClassDAO;
+import com.stephanHogenboom.masterclassers.model.*;
 
 import java.time.LocalDate;
 import java.util.concurrent.Executors;

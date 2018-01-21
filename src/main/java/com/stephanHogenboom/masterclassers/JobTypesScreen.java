@@ -1,6 +1,6 @@
-package masterclassers;
+package com.stephanHogenboom.masterclassers;
 
-import elements.AlertBox;
+import com.stephanHogenboom.elements.AlertBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
@@ -10,8 +10,8 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import masterclassers.model.JobType;
-import masterclassers.model.MasterClasser;
+import com.stephanHogenboom.masterclassers.model.JobType;
+import com.stephanHogenboom.masterclassers.model.MasterClasser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +41,7 @@ public class JobTypesScreen {
         mainNode.setRight(pieChart);
 
 
-        // elements that let someone add a jobtype
+        // com.stephanHogenboom.elements that let someone add a jobtype
         addJobTypeButton.setOnAction(e -> addJobType());
         jobInsertField.setPromptText("add name of job type");
         jobInsertField.setMinWidth(250);

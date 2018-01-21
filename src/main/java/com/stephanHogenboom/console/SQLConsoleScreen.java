@@ -1,4 +1,4 @@
-package sql.console;
+package com.stephanHogenboom.console;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import masterclassers.MasterClassDAO;
+import com.stephanHogenboom.masterclassers.MasterClassDAO;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;

@@ -1,4 +1,4 @@
-package acces;
+package com.stephanHogenboom.acces;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package elements;
+package com.stephanHogenboom.elements;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

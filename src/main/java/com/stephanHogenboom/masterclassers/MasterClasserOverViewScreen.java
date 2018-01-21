@@ -1,4 +1,4 @@
-package masterclassers;
+package com.stephanHogenboom.masterclassers;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -7,8 +7,8 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import masterclassers.model.Address;
-import masterclassers.model.MasterClasser;
+import com.stephanHogenboom.masterclassers.model.Address;
+import com.stephanHogenboom.masterclassers.model.MasterClasser;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -111,7 +111,7 @@ public class MasterClasserOverViewScreen {
 
 
         // TODO this code is very sloppy. Make a separate method to calculate income and profit
-        // TODO not all masterclassers generate same income the most increase their income by 250/ 3 months
+        // TODO not all com.stephanHogenboom.masterclassers generate same income the most increase their income by 250/ 3 months
         // TODO however devops generate 350 more per 3 months and Managers & pmos 425 per 3 months
         System.out.printf("%s selected \n",mc.getFullName());
         int yearWorked = mc.getStartDate().until(LocalDate.now()).getYears();

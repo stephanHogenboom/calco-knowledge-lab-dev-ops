@@ -1,4 +1,4 @@
-package masterclassers.model;
+package com.stephanHogenboom.masterclassers.model;
 
 public class Company {
     private int oid;

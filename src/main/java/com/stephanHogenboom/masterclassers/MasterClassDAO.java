@@ -1,10 +1,10 @@
-package masterclassers;
+package com.stephanHogenboom.masterclassers;
 
-import acces.GeneralDAO;
-import masterclassers.model.Address;
-import masterclassers.model.Company;
-import masterclassers.model.JobType;
-import masterclassers.model.MasterClasser;
+import com.stephanHogenboom.acces.GeneralDAO;
+import com.stephanHogenboom.masterclassers.model.Address;
+import com.stephanHogenboom.masterclassers.model.Company;
+import com.stephanHogenboom.masterclassers.model.JobType;
+import com.stephanHogenboom.masterclassers.model.MasterClasser;
 
 import java.sql.*;
 import java.time.LocalDate;

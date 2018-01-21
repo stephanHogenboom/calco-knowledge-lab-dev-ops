@@ -1,5 +1,7 @@
-import config.ConfigScreen;
-import csvInserter.CSVInsertService;
+package com.stephanHogenboom;
+
+import com.stephanHogenboom.config.ConfigScreen;
+import com.stephanHogenboom.csvInserter.CSVInsertService;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -9,18 +11,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import masterclassers.CompanyOverviewScreen;
-import masterclassers.JobTypesScreen;
-import masterclassers.MasterClasserOverViewScreen;
+import com.stephanHogenboom.masterclassers.CompanyOverviewScreen;
+import com.stephanHogenboom.masterclassers.JobTypesScreen;
+import com.stephanHogenboom.masterclassers.MasterClasserOverViewScreen;
 import org.flywaydb.core.Flyway;
 import org.sqlite.SQLiteConfig;
 import org.sqlite.SQLiteDataSource;
-import sql.console.SQLConsoleScreen;
-import util.SimpleLogConfig;
+import com.stephanHogenboom.console.SQLConsoleScreen;
+import com.stephanHogenboom.util.SimpleLogConfig;
 
 import java.io.File;
 import java.io.IOException;

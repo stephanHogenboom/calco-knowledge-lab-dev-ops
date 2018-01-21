@@ -1,7 +1,7 @@
-package masterclassers;
+package com.stephanHogenboom.masterclassers;
 
-import masterclassers.model.*;
-import elements.AlertBox;
+import com.stephanHogenboom.masterclassers.model.*;
+import com.stephanHogenboom.elements.AlertBox;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;

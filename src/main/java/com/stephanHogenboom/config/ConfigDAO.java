@@ -1,6 +1,6 @@
-package config;
+package com.stephanHogenboom.config;
 
-import acces.GeneralDAO;
+import com.stephanHogenboom.acces.GeneralDAO;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

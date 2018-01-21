@@ -1,4 +1,4 @@
-package csvInserter;
+package com.stephanHogenboom.csvInserter;
 
 import java.util.Arrays;
 import java.util.List;
