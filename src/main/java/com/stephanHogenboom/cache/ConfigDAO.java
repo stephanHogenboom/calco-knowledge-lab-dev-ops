@@ -1,4 +1,4 @@
-package com.stephanHogenboom.config;
+package com.stephanHogenboom.cache;
 
 import com.stephanHogenboom.acces.GeneralDAO;
 

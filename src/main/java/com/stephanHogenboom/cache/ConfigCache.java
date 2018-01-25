@@ -1,7 +1,5 @@
 package com.stephanHogenboom.cache;
 
-import com.stephanHogenboom.config.ConfigDAO;
-
 import java.util.HashMap;
 
 public class ConfigCache {

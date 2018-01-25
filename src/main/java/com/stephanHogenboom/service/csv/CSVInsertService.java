@@ -1,8 +1,8 @@
-package com.stephanHogenboom.csvInserter;
+package com.stephanHogenboom.service.csv;
 
 import com.stephanHogenboom.cache.ConfigCache;
 import com.stephanHogenboom.masterclassers.MasterClassDAO;
-import com.stephanHogenboom.masterclassers.model.*;
+import com.stephanHogenboom.model.*;
 
 import java.time.LocalDate;
 import java.util.concurrent.Executors;
@@ -13,7 +13,6 @@ public class CSVInsertService {
     private ConfigCache configCache = new ConfigCache();
     private MasterClassDAO dao = new MasterClassDAO();
     private ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
-    private Integer counter = 0;
 
 
     /**
@@ -26,32 +25,13 @@ public class CSVInsertService {
 
                 for (String csv : CsvInserts.insertList) {
                     try {
-                        counter++;
                         insertMasterClasser(csv);
+                        configCache.getConfigCache().put("delay_in_mil_sec", "25000");
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
-                    if (counter == 5) {
-                        ConfigCache cache = new ConfigCache();
-                        MasterClassDAO dao = new MasterClassDAO();
-                        try {
-                            dao.executeQueryPlain("update reg_item set reg_value = ',:' where reg_name = 'delimiter'");
-                            cache.resetRegistryCache();
-                            System.out.println("sabotage done!");
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
-                        }
-                        cache.resetRegistryCache();
-                    }
-                    try {
-                        Thread.sleep(Integer.parseInt(configCache.getConfigCache().getOrDefault("delay_in_mil_sec", "30000")));
-                    } catch (InterruptedException | NumberFormatException e) {
-                        System.out.println(e.getMessage());
-                        configCache.getConfigCache().put("delay_in_mil_sec", "25000");
-                    }
-
                 }
-            }, Integer.parseInt(configCache.getConfigCache().getOrDefault("initial_delay_in_sec", "60")), TimeUnit.SECONDS);
+            }, Integer.parseInt(configCache.getConfigCache().getOrDefault("initial_delay_in_sec", "180")), TimeUnit.SECONDS);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

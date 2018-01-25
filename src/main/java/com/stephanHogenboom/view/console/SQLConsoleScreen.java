@@ -1,4 +1,4 @@
-package com.stephanHogenboom.console;
+package com.stephanHogenboom.view.console;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;

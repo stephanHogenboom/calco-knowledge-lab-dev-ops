@@ -1,7 +1,9 @@
 package com.stephanHogenboom;
 
-import com.stephanHogenboom.config.ConfigScreen;
-import com.stephanHogenboom.csvInserter.CSVInsertService;
+import com.stephanHogenboom.view.config.ConfigScreen;
+import com.stephanHogenboom.service.csv.CSVInsertService;
+import com.stephanHogenboom.service.report.ReportService;
+import com.stephanHogenboom.service.sabotage.SabatogeService;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -14,13 +16,13 @@ import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import com.stephanHogenboom.masterclassers.CompanyOverviewScreen;
+import com.stephanHogenboom.view.CompanyOverviewScreen;
 import com.stephanHogenboom.masterclassers.JobTypesScreen;
 import com.stephanHogenboom.masterclassers.MasterClasserOverViewScreen;
 import org.flywaydb.core.Flyway;
 import org.sqlite.SQLiteConfig;
 import org.sqlite.SQLiteDataSource;
-import com.stephanHogenboom.console.SQLConsoleScreen;
+import com.stephanHogenboom.view.console.SQLConsoleScreen;
 import com.stephanHogenboom.util.SimpleLogConfig;
 
 import java.io.File;
@@ -47,11 +49,17 @@ public class App extends Application {
     private final ConfigScreen configScreenInitObject = new ConfigScreen();
     private final CompanyOverviewScreen companyOverviewScreenInitObject = new CompanyOverviewScreen();
     private final JobTypesScreen jobTypesScreenInitObject = new JobTypesScreen();
+
+
     public static void main(String[] args) {
         setup();
         configureFlywayAndMigrateDataBase();
         CSVInsertService service = new CSVInsertService();
+        SabatogeService sabatogeService = new SabatogeService();
         service.startInsertingThread();
+        sabatogeService.initSabatoge();
+        ReportService reportService = new ReportService();
+        reportService.buildSimpleReport();
         launch(args);
     }
 

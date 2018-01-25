@@ -1,17 +1,14 @@
-package com.stephanHogenboom.masterclassers.model;
+package com.stephanHogenboom.model;
 
-public class JobType {
-
+public class Company {
     private int oid;
     private String name;
 
-
-
-    public JobType(){
+    public Company(){
 
     }
 
-    public JobType(int oid, String name) {
+    public Company(int oid, String name) {
         this.oid = oid;
         this.name = name;
     }

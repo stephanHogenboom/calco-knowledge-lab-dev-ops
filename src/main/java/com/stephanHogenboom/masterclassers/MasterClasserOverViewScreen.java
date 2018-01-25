@@ -7,8 +7,8 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import com.stephanHogenboom.masterclassers.model.Address;
-import com.stephanHogenboom.masterclassers.model.MasterClasser;
+import com.stephanHogenboom.model.Address;
+import com.stephanHogenboom.model.MasterClasser;
 
 import java.time.LocalDate;
 import java.util.List;

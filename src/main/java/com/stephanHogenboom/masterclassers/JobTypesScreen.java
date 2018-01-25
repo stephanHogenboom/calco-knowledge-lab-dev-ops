@@ -10,8 +10,8 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import com.stephanHogenboom.masterclassers.model.JobType;
-import com.stephanHogenboom.masterclassers.model.MasterClasser;
+import com.stephanHogenboom.model.JobType;
+import com.stephanHogenboom.model.MasterClasser;
 
 import java.util.ArrayList;
 import java.util.HashMap;

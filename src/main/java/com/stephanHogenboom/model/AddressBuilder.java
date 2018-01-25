@@ -1,4 +1,4 @@
-package com.stephanHogenboom.masterclassers.model;
+package com.stephanHogenboom.model;
 
 public class AddressBuilder {
 

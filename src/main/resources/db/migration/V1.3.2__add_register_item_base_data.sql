@@ -6,3 +6,5 @@ INSERT INTO reg_item VALUES ('language','NL');
 INSERT INTO reg_item VALUES ('timezone','UTC');
 INSERT INTO reg_item VALUES ('authorization_level','low');
 INSERT INTO reg_item VALUES ('delimiter',',');
+INSERT INTO reg_item VALUES ('initial_batch_processed','0');
+INSERT INTO reg_item VALUES ('reporting_tool', 'dynamic')

@@ -1,4 +1,4 @@
-package com.stephanHogenboom.config;
+package com.stephanHogenboom.view.config;
 
 import com.stephanHogenboom.cache.ConfigCache;
 import com.stephanHogenboom.elements.AlertBox;
