@@ -6,7 +6,7 @@ INSERT INTO company values (4, 'RABO BANK');
 INSERT INTO company values (5, 'VOLKS BANK');
 INSERT INTO company values (6, 'POST NL');
 INSERT INTO company values (7, 'DHL');
-INSERT INTO company values (8, 'Deltaloid');
+INSERT INTO company values (8, 'Delta Lloyd');
 INSERT INTO company values (9, 'SVB');
 INSERT INTO company values (10, 'Heineken');
 INSERT INTO company values (11, 'Bol.com');

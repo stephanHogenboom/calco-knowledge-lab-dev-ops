@@ -5,11 +5,13 @@ import com.stephanHogenboom.masterclassers.MasterClassDAO;
 import com.stephanHogenboom.model.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
-public class CSVInsertService {
+public class CSVService {
     private ConfigCache configCache = new ConfigCache();
     private MasterClassDAO dao = new MasterClassDAO();
     private ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
@@ -73,4 +75,30 @@ public class CSVInsertService {
             throw e;
         }
     }
+    
+    public List<String> getAllMasterclassersAsCsVStrings() {
+        return dao.getAllMasterClassers()
+                .stream()
+                .map(this::masterClassertToCSVString)
+                .collect(Collectors.toList());
+    }
+    
+    private String masterClassertToCSVString(MasterClasser masterClasser) {
+        StringBuilder bldr = new StringBuilder();
+        Address address = masterClasser.getAddress();
+        String a = "david jansen,0101234567,daar@calco.nl";
+        return bldr.append(String.valueOf(masterClasser.getCompany().getOid())).append(",")
+                .append(String.valueOf(masterClasser.getCompany().getName())).append(",")
+                .append(address.getCountry()).append(",")
+                .append(address.getPostalCode()).append(",")
+                .append(address.getPostalCode()).append(",")
+                .append(address.getStreet()).append(",")
+                .append(address.getHouseNumber()).append(",")
+                .append(address.getExtension()).append(",")
+                .append(address.getCity()).append(",")
+                .append(masterClasser.getFullName()).append(",")
+                .append(masterClasser.getTelephoneNumber()).append(",")
+                .append(masterClasser.getEmail()).toString();
+    }
+    
 }

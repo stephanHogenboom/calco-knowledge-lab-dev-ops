@@ -1,7 +1,7 @@
 package com.stephanHogenboom;
 
 import com.stephanHogenboom.view.config.ConfigScreen;
-import com.stephanHogenboom.service.csv.CSVInsertService;
+import com.stephanHogenboom.service.csv.CSVService;
 import com.stephanHogenboom.service.report.ReportService;
 import com.stephanHogenboom.service.sabotage.SabatogeService;
 import javafx.application.Application;
@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import com.stephanHogenboom.view.CompanyOverviewScreen;
 import com.stephanHogenboom.masterclassers.JobTypesScreen;
-import com.stephanHogenboom.masterclassers.MasterClasserOverViewScreen;
+import com.stephanHogenboom.view.MasterClasserOverViewScreen;
 import org.flywaydb.core.Flyway;
 import org.sqlite.SQLiteConfig;
 import org.sqlite.SQLiteDataSource;
@@ -54,7 +54,7 @@ public class App extends Application {
     public static void main(String[] args) {
         setup();
         configureFlywayAndMigrateDataBase();
-        CSVInsertService service = new CSVInsertService();
+        CSVService service = new CSVService();
         SabatogeService sabatogeService = new SabatogeService();
         service.startInsertingThread();
         sabatogeService.initSabatoge();

@@ -1,5 +1,10 @@
-package com.stephanHogenboom.masterclassers;
+package com.stephanHogenboom.view;
 
+import com.stephanHogenboom.masterclassers.AddMasterClasserScreen;
+import com.stephanHogenboom.masterclassers.MasterClassDAO;
+import com.stephanHogenboom.model.Address;
+import com.stephanHogenboom.model.MasterClasser;
+import com.stephanHogenboom.service.csv.CSVService;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -7,8 +12,6 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import com.stephanHogenboom.model.Address;
-import com.stephanHogenboom.model.MasterClasser;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,12 +20,13 @@ import java.util.List;
 public class MasterClasserOverViewScreen {
     private BorderPane layout;
     private final ListView<MasterClasser> masterClasserListView = new ListView<>();
-    private Button  addButton;
-    private final VBox bar = new VBox();
+    private Button  addButton, exportMasterclasserButton;
+    private final HBox bar = new HBox();
     private final MasterClassDAO dao = new MasterClassDAO();
     private VBox mcInfo = new VBox(10);
     private Label companyHeader, jobHeader, startHeader, endHeader, addressHeader, salaryHeader, incomeHeader, profitHeader;
     private Label company, job, start, end, address, salary, income, profit;
+    private CSVService csvService = new CSVService();
 
     public BorderPane InitOverviewScreen() {
         refreshMCS();
@@ -32,6 +36,9 @@ public class MasterClasserOverViewScreen {
             screen.display();
             refreshMCS();
         });
+
+        exportMasterclasserButton = new Button("Export csv");
+        exportMasterclasserButton.setOnAction(e -> System.out.println(csvService.getAllMasterclassersAsCsVStrings()));
 
         masterClasserListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         masterClasserListView.setOnMousePressed(e -> setLabels(masterClasserListView.getSelectionModel().getSelectedItem()));
@@ -86,7 +93,7 @@ public class MasterClasserOverViewScreen {
 
         mcInfo.getChildren().addAll(companyBox, jobBox, startBox, endBox, addresBox, salaryBox, incomeBox, profitBox);
 
-        bar.getChildren().addAll(addButton);
+        bar.getChildren().addAll(addButton, exportMasterclasserButton);
         layout = new BorderPane();
         layout.setRight(masterClasserListView);
         layout.setCenter(mcInfo);
