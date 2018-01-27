@@ -1,6 +1,5 @@
 package com.stephanHogenboom.view;
 
-import com.stephanHogenboom.elements.AlertBox;
 import com.stephanHogenboom.service.report.ReportService;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
