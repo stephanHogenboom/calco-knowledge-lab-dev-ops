@@ -5,15 +5,19 @@ import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.builder.DynamicReports;
 import net.sf.dynamicreports.report.exception.DRException;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
 
 import static net.sf.dynamicreports.report.builder.DynamicReports.*;
 
 public class ReportService {
     MasterClassDAO dao = new MasterClassDAO();
 
-    public void buildSimpleReport() {
+    public void createMasterClasserReport() {
         JasperReportBuilder report = DynamicReports.report();
         report.columns(
                 col.column("", "oid", type.integerType()),
@@ -24,13 +28,12 @@ public class ReportService {
                 .pageFooter(cmp.pageXofY())
                 .setDataSource(dao.getAllMasterClassers());
                 try {
+                    Path reportDir = Paths.get("reports");
+                    Files.createDirectories(reportDir);
+                    report.toPdf(new FileOutputStream(String.format("reports/%s", LocalDate.now().toString())));
                     report.show();
-
-                    report.toPdf(new FileOutputStream("report.pdf"));
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (DRException e) {
-                    e.printStackTrace();
+                } catch (DRException | IOException e) {
+                    System.out.println(e.getMessage());
                 }
 
     }

@@ -4,7 +4,15 @@ import com.stephanHogenboom.cache.ConfigCache;
 import com.stephanHogenboom.masterclassers.MasterClassDAO;
 import com.stephanHogenboom.model.*;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -70,35 +78,61 @@ public class CSVService {
             mc.setEmail(parts[11]);
             dao.insertMasterClasser(mc);
             System.out.println("insertion succesfull!");
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             throw e;
         }
     }
-    
+
     public List<String> getAllMasterclassersAsCsVStrings() {
         return dao.getAllMasterClassers()
                 .stream()
                 .map(this::masterClassertToCSVString)
                 .collect(Collectors.toList());
     }
-    
+
     private String masterClassertToCSVString(MasterClasser masterClasser) {
-        StringBuilder bldr = new StringBuilder();
+        String mainValue = "mainValue";
+        int timesValueFound = 0;
+        HashMap<String, HashMap<String, String>> multiMap = new HashMap<>();
+        List<String> valuesFound = new ArrayList<>();
+        multiMap
+                .forEach((key, value) -> value
+                        .forEach((nestedKey, nestedValue) ->
+                        {
+                            if(nestedValue.equals(mainValue))
+                                valuesFound.add(nestedValue);
+                        }));
+
+
         Address address = masterClasser.getAddress();
-        String a = "david jansen,0101234567,daar@calco.nl";
-        return bldr.append(String.valueOf(masterClasser.getCompany().getOid())).append(",")
-                .append(String.valueOf(masterClasser.getCompany().getName())).append(",")
-                .append(address.getCountry()).append(",")
-                .append(address.getPostalCode()).append(",")
-                .append(address.getPostalCode()).append(",")
-                .append(address.getStreet()).append(",")
-                .append(address.getHouseNumber()).append(",")
-                .append(address.getExtension()).append(",")
-                .append(address.getCity()).append(",")
-                .append(masterClasser.getFullName()).append(",")
-                .append(masterClasser.getTelephoneNumber()).append(",")
-                .append(masterClasser.getEmail()).toString();
+        return String.valueOf(masterClasser.getCompany().getOid()) + "," +
+                String.valueOf(masterClasser.getCompany().getName()) + "," +
+                address.getCountry() + "," +
+                address.getPostalCode() + "," +
+                address.getPostalCode() + "," +
+                address.getStreet() + "," +
+                address.getHouseNumber() + "," +
+                address.getExtension() + "," +
+                address.getCity() + "," +
+                masterClasser.getFullName() + "," +
+                masterClasser.getTelephoneNumber() + "," +
+                masterClasser.getEmail();
     }
-    
+
+    public void writeCsvFileToFile(List<String> csv, String fileName) {
+        if (fileName == null || fileName.trim().isEmpty()) {
+            writeCsvFileToFile(csv, LocalDate.now().toString());
+            return;
+        }
+        Path directory = Paths.get("csv");
+        Path destination = Paths.get(String.format("csv/%s", fileName));
+        try {
+
+            Files.createDirectories(directory);
+            Files.write(destination, csv, Charset.defaultCharset());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

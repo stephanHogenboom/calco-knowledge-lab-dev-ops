@@ -3,4 +3,6 @@
 *.db
 *.iml
 *log*
+/report*
+/csv*
 profiles.xml

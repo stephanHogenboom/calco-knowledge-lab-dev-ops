@@ -38,7 +38,7 @@ public class MasterClasserOverViewScreen {
         });
 
         exportMasterclasserButton = new Button("Export csv");
-        exportMasterclasserButton.setOnAction(e -> System.out.println(csvService.getAllMasterclassersAsCsVStrings()));
+        exportMasterclasserButton.setOnAction(e -> csvService.writeCsvFileToFile(csvService.getAllMasterclassersAsCsVStrings(), null));
 
         masterClasserListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         masterClasserListView.setOnMousePressed(e -> setLabels(masterClasserListView.getSelectionModel().getSelectedItem()));

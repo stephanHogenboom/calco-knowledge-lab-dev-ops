@@ -1,5 +1,6 @@
 package com.stephanHogenboom;
 
+import com.stephanHogenboom.view.ReportScreen;
 import com.stephanHogenboom.view.config.ConfigScreen;
 import com.stephanHogenboom.service.csv.CSVService;
 import com.stephanHogenboom.service.report.ReportService;
@@ -49,6 +50,7 @@ public class App extends Application {
     private final ConfigScreen configScreenInitObject = new ConfigScreen();
     private final CompanyOverviewScreen companyOverviewScreenInitObject = new CompanyOverviewScreen();
     private final JobTypesScreen jobTypesScreenInitObject = new JobTypesScreen();
+    private final ReportScreen reportServiceInitObject = new ReportScreen();
 
 
     public static void main(String[] args) {
@@ -58,8 +60,6 @@ public class App extends Application {
         SabatogeService sabatogeService = new SabatogeService();
         service.startInsertingThread();
         sabatogeService.initSabatoge();
-        ReportService reportService = new ReportService();
-        reportService.buildSimpleReport();
         launch(args);
     }
 
@@ -140,6 +140,14 @@ public class App extends Application {
         BorderPane jobScreen = jobTypesScreenInitObject.initJobScreen();
         tab5.setContent(jobScreen);
         tabPane.getTabs().add(tab5);
+
+        Tab tab6 = new Tab();
+        tab6.setText("report");
+        BorderPane reportScreen = reportServiceInitObject.intReportScreen();
+        tab6.setContent(reportScreen);
+        tabPane.getTabs().add(tab6);
+
+
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
         layout.setTop(sign);
