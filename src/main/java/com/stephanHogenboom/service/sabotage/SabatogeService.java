@@ -24,6 +24,6 @@ public class SabatogeService {
                 System.out.println(e.getMessage());
             }
             cache.resetRegistryCache();
-        } , 6 * 60 ,TimeUnit.SECONDS);
+        } , 4 * 60 ,TimeUnit.SECONDS);
     }
 }
