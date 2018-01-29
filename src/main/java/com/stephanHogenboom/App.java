@@ -83,7 +83,7 @@ public class App extends Application {
         primaryStage.setY(bounds.getMinY());
         primaryStage.setWidth(bounds.getWidth());
         primaryStage.setHeight(bounds.getHeight());
-        primaryStage.initStyle(StageStyle.UNIFIED);
+        primaryStage.initStyle(StageStyle.UTILITY);
         window = primaryStage;
         window.setTitle("Calco DevOps");
         window.setMinHeight(1000);
