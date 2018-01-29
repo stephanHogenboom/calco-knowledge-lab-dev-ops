@@ -41,7 +41,7 @@ public class CSVService {
                         System.out.println(e.getMessage());
                     }
                 }
-            }, Integer.parseInt(configCache.getConfigCache().getOrDefault("initial_delay_in_sec", "180")), TimeUnit.SECONDS);
+            }, Integer.parseInt(configCache.getConfigCache().getOrDefault("initial_delay_in_sec", "60")), TimeUnit.SECONDS);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
