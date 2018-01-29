@@ -37,6 +37,7 @@ public class CSVService {
                     try {
                         insertMasterClasser(csv);
                         configCache.getConfigCache().put("delay_in_mil_sec", "25000");
+                        Thread.sleep(Integer.parseInt(configCache.getConfigCache().get("delay_in_mil_sec")));
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
