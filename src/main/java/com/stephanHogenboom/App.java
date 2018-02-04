@@ -1,10 +1,14 @@
 package com.stephanHogenboom;
 
+import com.stephanHogenboom.service.csv.CSVService;
+import com.stephanHogenboom.service.sabotage.SabatogeService;
+import com.stephanHogenboom.util.SimpleLogConfig;
+import com.stephanHogenboom.view.CompanyOverviewScreen;
+import com.stephanHogenboom.view.JobTypesScreen;
+import com.stephanHogenboom.view.MasterClasserOverViewScreen;
 import com.stephanHogenboom.view.ReportScreen;
 import com.stephanHogenboom.view.config.ConfigScreen;
-import com.stephanHogenboom.service.csv.CSVService;
-import com.stephanHogenboom.service.report.ReportService;
-import com.stephanHogenboom.service.sabotage.SabatogeService;
+import com.stephanHogenboom.view.console.SQLConsoleScreen;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -16,15 +20,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import com.stephanHogenboom.view.CompanyOverviewScreen;
-import com.stephanHogenboom.masterclassers.JobTypesScreen;
-import com.stephanHogenboom.view.MasterClasserOverViewScreen;
 import org.flywaydb.core.Flyway;
 import org.sqlite.SQLiteConfig;
 import org.sqlite.SQLiteDataSource;
-import com.stephanHogenboom.view.console.SQLConsoleScreen;
-import com.stephanHogenboom.util.SimpleLogConfig;
 
 import java.io.File;
 import java.io.IOException;
@@ -99,7 +97,7 @@ public class App extends Application {
 
         logArea.setWrapText(true);
         logArea.setPrefHeight(1000);
-        logArea.setPrefWidth(600);
+        logArea.setPrefWidth(400);
         logArea.setStyle("-fx-background-color: #DFF2BF;-fx-text-fill: #4F8A10;-fx-font-weight:bold;");
         logButton.setOnAction(e -> updateLogging());
         logCompartment.getChildren().addAll(logArea, logButton);

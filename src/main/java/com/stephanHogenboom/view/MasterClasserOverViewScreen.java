@@ -1,7 +1,7 @@
 package com.stephanHogenboom.view;
 
-import com.stephanHogenboom.masterclassers.AddMasterClasserScreen;
-import com.stephanHogenboom.masterclassers.MasterClassDAO;
+import com.stephanHogenboom.view.AddMasterClasserScreen;
+import com.stephanHogenboom.acces.MasterClassDAO;
 import com.stephanHogenboom.model.Address;
 import com.stephanHogenboom.model.MasterClasser;
 import com.stephanHogenboom.service.csv.CSVService;

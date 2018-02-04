@@ -12,6 +12,8 @@ public class MasterClasser {
     private LocalDate startDate;
     private LocalDate endDate;
     private Company company;
+    private FieldManager fieldManager;
+
 
     @Override
     public String toString() {
@@ -88,5 +90,13 @@ public class MasterClasser {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public FieldManager getFieldManager() {
+        return fieldManager;
+    }
+
+    public void setFieldManager(FieldManager fieldManager) {
+        this.fieldManager = fieldManager;
     }
 }

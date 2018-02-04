@@ -1,13 +1,12 @@
 package com.stephanHogenboom.service.csv;
 
 import com.stephanHogenboom.cache.ConfigCache;
-import com.stephanHogenboom.masterclassers.MasterClassDAO;
+import com.stephanHogenboom.acces.MasterClassDAO;
 import com.stephanHogenboom.model.*;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -77,6 +76,9 @@ public class CSVService {
             mc.setStartDate(LocalDate.now().minusMonths((int) (Math.random() * 15) + 1));
             mc.setTelephoneNumber(parts[10]);
             mc.setEmail(parts[11]);
+            FieldManager fm = new FieldManager();
+            fm.setOid(Integer.parseInt(parts[12]));
+            mc.setFieldManager(fm);
             dao.insertMasterClasser(mc);
             System.out.println("insertion succesfull!");
         } catch (Exception e) {

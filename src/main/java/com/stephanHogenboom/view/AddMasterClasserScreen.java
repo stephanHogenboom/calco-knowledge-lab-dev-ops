@@ -1,7 +1,8 @@
-package com.stephanHogenboom.masterclassers;
+package com.stephanHogenboom.view;
 
-import com.stephanHogenboom.model.*;
+import com.stephanHogenboom.acces.MasterClassDAO;
 import com.stephanHogenboom.elements.AlertBox;
+import com.stephanHogenboom.model.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -19,8 +20,9 @@ public class AddMasterClasserScreen {
     private Stage window;
     private ComboBox<JobType> jobTypes;
     private ComboBox<Company> companies = new ComboBox<>();;
+    private ComboBox<FieldManager> fieldManagers = new ComboBox<>();
     private TextField fullNameTextField, streetNameEntry, extension, postalCode, houseNumber, city;
-    private Label nameMasterClasser, companyOfMC;
+    private Label nameMasterClasser, companyOfMC, fmOfMc;
     private final MasterClassDAO dao = new MasterClassDAO();
     private TextField telephoneField, emailText;
     private Company calco = new Company(0, "Calco");
@@ -41,16 +43,21 @@ public class AddMasterClasserScreen {
         HBox masterClasserBox = new HBox(20);
         VBox nameBox = new VBox();
 
-        nameMasterClasser = new Label("name of the master classer");
+        nameMasterClasser = new Label("Full name");
         nameMasterClasser.setTextAlignment(TextAlignment.CENTER);
         fullNameTextField = getTextField("full name");
         nameBox.getChildren().addAll(nameMasterClasser, fullNameTextField);
 
         VBox companyBox = new VBox();
-        companyOfMC = new Label("company of Master classer");
+        companyOfMC = new Label("Company");
         companies.getItems().addAll(dao.getAllCompanies());
         companyBox.getChildren().addAll(companyOfMC, companies);
 
+        VBox fieldManagerBox = new VBox();
+        fmOfMc = new Label("Field Manager");
+        fieldManagers.getItems().addAll(dao.getAllFieldManagers());
+        fieldManagers.getSelectionModel().selectFirst();
+        fieldManagerBox.getChildren().addAll(fmOfMc, fieldManagers);
 
 
 
@@ -59,7 +66,7 @@ public class AddMasterClasserScreen {
         jobTypes = new ComboBox<>();
         jobTypes.getItems().addAll(dao.getAllJobTypes());
         jobBox.getChildren().addAll(jobLabel, jobTypes);
-        masterClasserBox.getChildren().addAll(nameBox, jobBox, companyBox);
+        masterClasserBox.getChildren().addAll(nameBox, jobBox, companyBox, fieldManagerBox);
 
         VBox contactDetails = new VBox();
         Label telephone = new Label("Telephone Number");
@@ -111,6 +118,7 @@ public class AddMasterClasserScreen {
         mc.setTelephoneNumber(fullNameTextField.getText() == null ? "" : fullNameTextField.getText());
         mc.setStartDate(LocalDate.now());
         mc.setJobType(jobTypes.getValue());
+        mc.setFieldManager(fieldManagers.getValue());
         if (companies.getSelectionModel().getSelectedItem() != null) {
             mc.setCompany(companies.getSelectionModel().getSelectedItem());
         } else {

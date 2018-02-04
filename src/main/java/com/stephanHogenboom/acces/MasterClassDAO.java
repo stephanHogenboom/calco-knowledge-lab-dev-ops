@@ -1,10 +1,6 @@
-package com.stephanHogenboom.masterclassers;
+package com.stephanHogenboom.acces;
 
-import com.stephanHogenboom.acces.GeneralDAO;
-import com.stephanHogenboom.model.Address;
-import com.stephanHogenboom.model.Company;
-import com.stephanHogenboom.model.JobType;
-import com.stephanHogenboom.model.MasterClasser;
+import com.stephanHogenboom.model.*;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -51,7 +47,7 @@ public class MasterClassDAO extends GeneralDAO {
 
     public boolean insertMasterClasser(MasterClasser mc) {
         boolean flag = false;
-        String sql = "INSERT INTO master_classer VALUES (?, ?, ?, ?, ? ,? ,?, ?, ?);";
+        String sql = "INSERT INTO master_classer VALUES (?, ?, ?, ?, ? ,? ,?, ?, ?, ?);";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, incrementAndGetMaxId("master_classer"));
             stmt.setString(2, mc.getFullName());
@@ -62,6 +58,7 @@ public class MasterClassDAO extends GeneralDAO {
             stmt.setString(7, mc.getTelephoneNumber());
             stmt.setString(8, mc.getEmail());
             stmt.setInt(9, mc.getCompany().getOid());
+            stmt.setInt(10, mc.getFieldManager().getOid());
             insertAddress(mc.getAddress());
             flag = stmt.execute();
         } catch (SQLException e) {
@@ -88,6 +85,7 @@ public class MasterClassDAO extends GeneralDAO {
                 mc.setEmail(rs.getString(7));
                 mc.setTelephoneNumber(rs.getString(8));
                 mc.setCompany(getCompanyByOid(rs.getInt(9)));
+                mc.setFieldManager(getFieldManager(rs.getInt(10)));
                 mcs.add(mc);
             }
         } catch (SQLException e) {
@@ -179,5 +177,42 @@ public class MasterClassDAO extends GeneralDAO {
             e.printStackTrace();
         }
         return maxId + 1;
+    }
+
+    private FieldManager getFieldManager(int oid) {
+        FieldManager fm = new FieldManager();
+        String sql = String.format("SELECT * FROM field_manager where oid = '%s';", oid);
+        try (Statement stmnt = connection.createStatement();
+             ResultSet rs = stmnt.executeQuery(sql)) {
+            if (rs.next()) {
+                fm.setOid(oid);
+                fm.setName(rs.getString(2));
+                fm.setPhoneNumber(rs.getString(3));
+                fm.setEmail(rs.getString(4));
+                return fm;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public List<FieldManager> getAllFieldManagers() {
+        List<FieldManager> fieldManagers = new ArrayList<>();
+        String sql = "SELECT * FROM field_manager;";
+        try (Statement stmnt = connection.createStatement();
+             ResultSet rs = stmnt.executeQuery(sql)) {
+            while (rs.next()) {
+                FieldManager fm = new FieldManager();
+                fm.setOid(rs.getInt(1));
+                fm.setName(rs.getString(2));
+                fm.setPhoneNumber(rs.getString(3));
+                fm.setEmail(rs.getString(4));
+                fieldManagers.add(fm);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return fieldManagers;
     }
 }

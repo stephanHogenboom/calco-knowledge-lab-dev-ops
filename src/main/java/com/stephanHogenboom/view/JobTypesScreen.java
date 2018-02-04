@@ -1,5 +1,6 @@
-package com.stephanHogenboom.masterclassers;
+package com.stephanHogenboom.view;
 
+import com.stephanHogenboom.acces.MasterClassDAO;
 import com.stephanHogenboom.elements.AlertBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

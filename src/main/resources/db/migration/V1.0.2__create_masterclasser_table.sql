@@ -8,9 +8,11 @@ CREATE TABLE master_classer (
     telephone TEXT,
     email TEXT,
     company_id INTEGER,
+    field_manager_id INTEGER,
     PRIMARY KEY (full_name),
     FOREIGN KEY(company_id) REFERENCES company(oid) ON DELETE RESTRICT,
-    FOREIGN KEY(address_id) REFERENCES address(kix_code) ON DELETE RESTRICT
+    FOREIGN KEY(address_id) REFERENCES address(kix_code) ON DELETE RESTRICT,
+    FOREIGN KEY(field_manager_id) REFERENCES field_manager(oid) ON DELETE RESTRICT,
     UNIQUE (full_name),
     UNIQUE (telephone),
     UNIQUE (email)

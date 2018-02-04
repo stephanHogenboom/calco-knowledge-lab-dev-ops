@@ -1,7 +1,7 @@
 package com.stephanHogenboom.view;
 
 import com.stephanHogenboom.elements.AlertBox;
-import com.stephanHogenboom.masterclassers.MasterClassDAO;
+import com.stephanHogenboom.acces.MasterClassDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;

@@ -11,7 +11,6 @@
     <build>
         <testSourceDirectory>src/test</testSourceDirectory>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -22,13 +21,6 @@
                         <phase>compile</phase>
                         <goals>
                             <goal>compile</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>testCompile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>testCompile</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -104,9 +96,5 @@
             <artifactId>eclipselink</artifactId>
             <version>2.7.0</version>
         </dependency>
-
-
     </dependencies>
-
-
 </project>

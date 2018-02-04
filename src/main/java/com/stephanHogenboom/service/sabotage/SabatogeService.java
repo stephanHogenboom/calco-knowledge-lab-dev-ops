@@ -2,7 +2,7 @@ package com.stephanHogenboom.service.sabotage;
 
 import com.stephanHogenboom.acces.GeneralDAO;
 import com.stephanHogenboom.cache.ConfigCache;
-import com.stephanHogenboom.masterclassers.MasterClassDAO;
+import com.stephanHogenboom.acces.MasterClassDAO;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
