@@ -1,6 +1,7 @@
 package com.stephanHogenboom.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class MasterClasser {
     private int oid;
@@ -13,6 +14,7 @@ public class MasterClasser {
     private LocalDate endDate;
     private Company company;
     private FieldManager fieldManager;
+    private List<Specialization> specializations;
 
 
     @Override

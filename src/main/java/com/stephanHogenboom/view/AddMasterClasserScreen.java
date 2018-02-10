@@ -3,6 +3,7 @@ package com.stephanHogenboom.view;
 import com.stephanHogenboom.acces.MasterClassDAO;
 import com.stephanHogenboom.elements.AlertBox;
 import com.stephanHogenboom.model.*;
+import com.stephanHogenboom.util.AddressHelper;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -26,6 +27,7 @@ public class AddMasterClasserScreen {
     private final MasterClassDAO dao = new MasterClassDAO();
     private TextField telephoneField, emailText;
     private Company calco = new Company(0, "Calco");
+    private AddressHelper addressHelper = new AddressHelper();
 
 
 
@@ -148,7 +150,8 @@ public class AddMasterClasserScreen {
             }
         }
 
-        // TODO postal code should match the format NNNNAA for example 2265GH
+        //TODO postal code should match the format NNNNAA for example 2265GH
+        //TODO see the util.AddressHelper.java
         String postalCodeText = postalCode.getText().toUpperCase();
 
         AddressBuilder bldr = new AddressBuilder();
@@ -164,4 +167,5 @@ public class AddMasterClasserScreen {
                 .setKixCode();
         return bldr.build();
     }
+
 }

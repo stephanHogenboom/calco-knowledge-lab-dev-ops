@@ -87,23 +87,34 @@ public class CSVService {
         }
     }
 
-    public List<String> getAllMasterclassersAsCsVStrings() {
+    private List<String> getAllMasterclassersAsCsVStrings() {
         return dao.getAllMasterClassers()
                 .stream()
                 .map(this::masterClassertToCSVString)
                 .collect(Collectors.toList());
     }
 
+    public void writeCsvFileToFile() {
+        String fileName = LocalDate.now().toString();
+        Path directory = Paths.get("csv");
+        Path destination = Paths.get(String.format("csv/%s", fileName));
+        try {
+            Files.createDirectories(directory);
+            Files.write(destination, getAllMasterclassersAsCsVStrings(), Charset.defaultCharset());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private String masterClassertToCSVString(MasterClasser masterClasser) {
         String mainValue = "mainValue";
-        int timesValueFound = 0;
         HashMap<String, HashMap<String, String>> multiMap = new HashMap<>();
         List<String> valuesFound = new ArrayList<>();
         multiMap
                 .forEach((key, value) -> value
                         .forEach((nestedKey, nestedValue) ->
                         {
-                            if(nestedValue.equals(mainValue))
+                            if (nestedValue.equals(mainValue))
                                 valuesFound.add(nestedValue);
                         }));
 
@@ -120,22 +131,7 @@ public class CSVService {
                 address.getCity() + "," +
                 masterClasser.getFullName() + "," +
                 masterClasser.getTelephoneNumber() + "," +
-                masterClasser.getEmail();
-    }
-
-    public void writeCsvFileToFile(List<String> csv, String fileName) {
-        if (fileName == null || fileName.trim().isEmpty()) {
-            writeCsvFileToFile(csv, LocalDate.now().toString());
-            return;
-        }
-        Path directory = Paths.get("csv");
-        Path destination = Paths.get(String.format("csv/%s", fileName));
-        try {
-
-            Files.createDirectories(directory);
-            Files.write(destination, csv, Charset.defaultCharset());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+                masterClasser.getEmail() + "," +
+                masterClasser.getFieldManager().getOid();
     }
 }
