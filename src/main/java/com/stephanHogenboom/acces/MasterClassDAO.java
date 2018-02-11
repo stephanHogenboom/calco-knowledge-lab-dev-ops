@@ -60,6 +60,7 @@ public class MasterClassDAO extends GeneralDAO {
             stmt.setInt(9, mc.getCompany().getOid());
             stmt.setInt(10, mc.getFieldManager().getOid());
             insertAddress(mc.getAddress());
+            addSpecializationForMasterClasser(mc.getOid(), mc.getSpecializations());
             flag = stmt.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -86,12 +87,13 @@ public class MasterClassDAO extends GeneralDAO {
                 mc.setTelephoneNumber(rs.getString(8));
                 mc.setCompany(getCompanyByOid(rs.getInt(9)));
                 mc.setFieldManager(getFieldManager(rs.getInt(10)));
+                mc.setSpecializations(getSpecilaizationsForMasterClasser(mc.getOid()));
                 mcs.add(mc);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-            return mcs;
+        return mcs;
     }
 
     private JobType getJobType(int oid) {
@@ -146,7 +148,7 @@ public class MasterClassDAO extends GeneralDAO {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-    }
+        }
         return null;
     }
 
@@ -214,5 +216,56 @@ public class MasterClassDAO extends GeneralDAO {
             System.out.println(e.getMessage());
         }
         return fieldManagers;
+    }
+
+
+    public void addSpecialization(Specialization specialization) {
+        //TODO add funcionality for this function
+    }
+
+
+    private void addSpecializationForMasterClasser(int masterClasserId, List<Specialization> specializations) {
+        //TODO add functionality to add specializations for the given master classer
+    }
+
+
+    private List<Specialization> getSpecilaizationsForMasterClasser(int masterClasserId) {
+        List<Specialization> specializations = new ArrayList<>();
+        //TODO look if this code works
+        String sql = "SELECT sp.oid, sp.course_name FROM Specialization sp INNER JOIN special_master_class sm ON sp.oid =" +
+                " sm.specialization_id WHERE sm.master_classer_id = ?;";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, masterClasserId);
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    Specialization specialization = new Specialization();
+                    specialization.setId(rs.getInt(1));
+                    specialization.setName(rs.getString(2));
+                    specializations.add(specialization);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return specializations;
+    }
+
+
+    public List<Specialization> getAllSpecilaizations() {
+        List<Specialization> specializations = new ArrayList<>();
+
+        String sql = "SELECT * FROM Specialization;";
+        try (Statement stmnt = connection.createStatement();
+             ResultSet rs = stmnt.executeQuery(sql)) {
+            while (rs.next()) {
+                Specialization special = new Specialization();
+                special.setId(rs.getInt(1));
+                special.setName(rs.getString(2));
+                specializations.add(special);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return specializations;
     }
 }

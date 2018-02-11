@@ -1,3 +1,4 @@
+INSERT INTO specialization values (0, 'None' );
 INSERT INTO specialization values (1, 'Business analyst' );
 INSERT INTO specialization values (2, 'Security' );
 INSERT INTO specialization values (3, 'java basis' );

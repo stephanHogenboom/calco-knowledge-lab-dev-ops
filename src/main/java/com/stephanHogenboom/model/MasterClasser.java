@@ -16,7 +16,6 @@ public class MasterClasser {
     private FieldManager fieldManager;
     private List<Specialization> specializations;
 
-
     @Override
     public String toString() {
         return fullName;
@@ -100,5 +99,13 @@ public class MasterClasser {
 
     public void setFieldManager(FieldManager fieldManager) {
         this.fieldManager = fieldManager;
+    }
+
+    public List<Specialization> getSpecializations() {
+        return specializations;
+    }
+
+    public void setSpecializations(List<Specialization> specializations) {
+        this.specializations = specializations;
     }
 }

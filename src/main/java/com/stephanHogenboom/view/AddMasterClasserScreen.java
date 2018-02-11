@@ -4,6 +4,8 @@ import com.stephanHogenboom.acces.MasterClassDAO;
 import com.stephanHogenboom.elements.AlertBox;
 import com.stephanHogenboom.model.*;
 import com.stephanHogenboom.util.AddressHelper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -11,19 +13,22 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.controlsfx.control.CheckComboBox;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AddMasterClasserScreen {
     private Stage window;
     private ComboBox<JobType> jobTypes;
     private ComboBox<Company> companies = new ComboBox<>();;
     private ComboBox<FieldManager> fieldManagers = new ComboBox<>();
+    private CheckComboBox<Specialization> specializationCheckComboBox;
     private TextField fullNameTextField, streetNameEntry, extension, postalCode, houseNumber, city;
-    private Label nameMasterClasser, companyOfMC, fmOfMc;
+    private Label nameMasterClasser, companyOfMC, fmOfMc, specializationLabel;
     private final MasterClassDAO dao = new MasterClassDAO();
     private TextField telephoneField, emailText;
     private Company calco = new Company(0, "Calco");
@@ -61,6 +66,13 @@ public class AddMasterClasserScreen {
         fieldManagers.getSelectionModel().selectFirst();
         fieldManagerBox.getChildren().addAll(fmOfMc, fieldManagers);
 
+        VBox specializationBox = new VBox();
+        specializationLabel = new Label("Specialization");
+        ObservableList<Specialization> specials = FXCollections.observableArrayList();
+        specials.addAll(dao.getAllSpecilaizations());
+        specializationCheckComboBox = new CheckComboBox<>(specials);
+        specializationCheckComboBox.setMaxWidth(150);
+        specializationBox.getChildren().addAll(specializationLabel, specializationCheckComboBox);
 
 
         VBox jobBox = new VBox();
@@ -68,7 +80,7 @@ public class AddMasterClasserScreen {
         jobTypes = new ComboBox<>();
         jobTypes.getItems().addAll(dao.getAllJobTypes());
         jobBox.getChildren().addAll(jobLabel, jobTypes);
-        masterClasserBox.getChildren().addAll(nameBox, jobBox, companyBox, fieldManagerBox);
+        masterClasserBox.getChildren().addAll(nameBox, jobBox, companyBox, fieldManagerBox, specializationBox);
 
         VBox contactDetails = new VBox();
         Label telephone = new Label("Telephone Number");
@@ -109,11 +121,12 @@ public class AddMasterClasserScreen {
     private void addMasterClasser() {
         MasterClasser mc = new MasterClasser();
         if (fullNameTextField.getText() == null || fullNameTextField.getText().isEmpty()) {
-            AlertBox.display("error", "name of master classer cannot be empty!");
+            AlertBox.display("error", "the name of a master classer cannot be empty!");
             return;
         }
         mc.setFullName(fullNameTextField.getText());
         mc.setAddress(validateAndSetAddress());
+        //TODO if address is null this method should not proceed
         //TODO if an email is provided it should be formatted correctly -> <front>@<back>.<domain>
         //TODo the last part of the email adrres should be between 2 and 6 characters
         mc.setEmail(emailText.getText() == null ? "" : emailText.getText());
@@ -126,8 +139,14 @@ public class AddMasterClasserScreen {
         } else {
             mc.setCompany(calco);
         }
+        List<Specialization> specializations = specializationCheckComboBox.getCheckModel().getCheckedIndices()
+                .stream()
+                .map(i -> specializationCheckComboBox.getItems().get(i))
+                .peek(System.out::println)
+                .collect(Collectors.toList());
+        mc.setSpecializations(specializations);
 
-        boolean flag = dao.insertMasterClasser(mc);
+        dao.insertMasterClasser(mc);
         AlertBox.display("Succes", "Master classer succesfully inserted!");
         window.close();
     }
@@ -152,6 +171,7 @@ public class AddMasterClasserScreen {
 
         //TODO postal code should match the format NNNNAA for example 2265GH
         //TODO see the util.AddressHelper.java
+        // addressHelper.validatePostalCode()
         String postalCodeText = postalCode.getText().toUpperCase();
 
         AddressBuilder bldr = new AddressBuilder();
