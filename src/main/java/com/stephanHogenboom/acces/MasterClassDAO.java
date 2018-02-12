@@ -49,7 +49,8 @@ public class MasterClassDAO extends GeneralDAO {
         boolean flag = false;
         String sql = "INSERT INTO master_classer VALUES (?, ?, ?, ?, ? ,? ,?, ?, ?, ?);";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, incrementAndGetMaxId("master_classer"));
+            mc.setOid(incrementAndGetMaxId("master_classer"));
+            stmt.setInt(1, mc.getOid());
             stmt.setString(2, mc.getFullName());
             stmt.setString(3, mc.getAddress().getKixCode());
             stmt.setString(4, mc.getStartDate().toString());
@@ -59,8 +60,9 @@ public class MasterClassDAO extends GeneralDAO {
             stmt.setString(8, mc.getEmail());
             stmt.setInt(9, mc.getCompany().getOid());
             stmt.setInt(10, mc.getFieldManager().getOid());
+
             insertAddress(mc.getAddress());
-            addSpecializationForMasterClasser(mc.getOid(), mc.getSpecializations());
+            addSpecializationsForMasterClasser(mc.getOid(), mc.getSpecializations());
             flag = stmt.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -219,21 +221,33 @@ public class MasterClassDAO extends GeneralDAO {
     }
 
 
-    public void addSpecialization(Specialization specialization) {
+    public void addSpecialization(String specialization) {
         //TODO add funcionality for this function
     }
 
 
-    private void addSpecializationForMasterClasser(int masterClasserId, List<Specialization> specializations) {
-        //TODO add functionality to add specializations for the given master classer
+    private void addSpecializationsForMasterClasser(int masterClasserId, List<Specialization> specializations) {
+        specializations.forEach(System.out::println);
+        specializations.forEach(specialization -> addSpecializationForMasterClasser(masterClasserId, specialization.getId()));
+    }
+
+    private void addSpecializationForMasterClasser(int masterClasserId, int specializationId) {
+        String sql = "INSERT INTO specialization_masterclasser VALUES (? , ?);";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, masterClasserId);
+            statement.setInt(2, specializationId);
+            statement.execute();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 
     private List<Specialization> getSpecilaizationsForMasterClasser(int masterClasserId) {
         List<Specialization> specializations = new ArrayList<>();
-        //TODO look if this code works
-        String sql = "SELECT sp.oid, sp.course_name FROM Specialization sp INNER JOIN special_master_class sm ON sp.oid =" +
+        String sql = "SELECT sp.oid, sp.course_name FROM Specialization sp INNER JOIN specialization_masterclasser sm ON sp.oid =" +
                 " sm.specialization_id WHERE sm.master_classer_id = ?;";
+
         try (PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setInt(1, masterClasserId);
             try (ResultSet rs = statement.executeQuery()) {

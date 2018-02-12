@@ -32,6 +32,7 @@ public class AddMasterClasserScreen {
     private final MasterClassDAO dao = new MasterClassDAO();
     private TextField telephoneField, emailText;
     private Company calco = new Company(0, "Calco");
+    //TODO use address helper to verify data
     private AddressHelper addressHelper = new AddressHelper();
 
 
@@ -94,6 +95,7 @@ public class AddMasterClasserScreen {
         //Address
         streetNameEntry = getTextField("street name");
         HBox numberExtension = new HBox();
+        //TODO input valuer should be numeric!!
         houseNumber = getTextField("house number");
         extension = getTextField("extension");
         numberExtension.getChildren().addAll(houseNumber, extension);
@@ -145,7 +147,6 @@ public class AddMasterClasserScreen {
                 .peek(System.out::println)
                 .collect(Collectors.toList());
         mc.setSpecializations(specializations);
-
         dao.insertMasterClasser(mc);
         AlertBox.display("Succes", "Master classer succesfully inserted!");
         window.close();
@@ -181,6 +182,7 @@ public class AddMasterClasserScreen {
         bldr.setCountry("NL")
                 .setPostalCode(postalCodeText)
                 .setStreet(streetNameEntry.getText())
+                //TODO verify that houseNumber is numeric before inserting here!
                 .setHouseNumber(Integer.parseInt(houseNumber.getText()))
                 .setExtension(ext)
                 .setCity(city.getText())

@@ -51,7 +51,7 @@ public class IncomeStatementCalculator {
 
     @VisibleForTesting
     int calculateMonthsWorkedForPeriod(LocalDate start, LocalDate end) {
-        if (start.isAfter(end)) throw new IllegalStateException("Startdate cannot be before the end date!");
+        if (start.isAfter(end)) throw new IllegalStateException("Start date cannot be before the end date!");
         Period periodWorked = start.until(end);
         int monthsWorked = periodWorked.getMonths();
         int yearsWorked = periodWorked.getYears();

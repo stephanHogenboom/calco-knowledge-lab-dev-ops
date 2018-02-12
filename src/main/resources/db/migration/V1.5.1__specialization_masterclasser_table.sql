@@ -1,4 +1,4 @@
-CREATE TABLE special_master_class (
+CREATE TABLE specialization_masterclasser (
     specialization_id INTEGER NOT NULL,
     master_classer_id INTEGER NOT NULL,
     FOREIGN KEY(specialization_id) REFERENCES specialization(oid) ON DELETE RESTRICT,

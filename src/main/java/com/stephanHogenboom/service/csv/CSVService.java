@@ -10,8 +10,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -90,7 +88,7 @@ public class CSVService {
     private List<String> getAllMasterclassersAsCsVStrings() {
         return dao.getAllMasterClassers()
                 .stream()
-                .map(this::masterClassertToCSVString)
+                .map(this::masterClasserToCSVString)
                 .collect(Collectors.toList());
     }
 
@@ -106,18 +104,23 @@ public class CSVService {
         }
     }
 
-    private String masterClassertToCSVString(MasterClasser masterClasser) {
-        String mainValue = "mainValue";
-        HashMap<String, HashMap<String, String>> multiMap = new HashMap<>();
-        List<String> valuesFound = new ArrayList<>();
-        multiMap
-                .forEach((key, value) -> value
-                        .forEach((nestedKey, nestedValue) ->
-                        {
-                            if (nestedValue.equals(mainValue))
-                                valuesFound.add(nestedValue);
-                        }));
+    private String toDoubleDigitString(int id) {
+        String digit = String.valueOf(id);
+        if(digit.length() == 1) {
+            return "0".concat(digit);
+        }
+        return digit;
+    }
 
+    private String masterClasserToCSVString(MasterClasser masterClasser) {
+        String specializationString;
+        if (masterClasser.getSpecializations() != null) {
+            specializationString = masterClasser.getSpecializations()
+                    .stream().map(specialization -> toDoubleDigitString(specialization.getId()))
+                    .collect(Collectors.joining());
+        } else {
+            specializationString = "";
+        }
 
         Address address = masterClasser.getAddress();
         return String.valueOf(masterClasser.getCompany().getOid()) + "," +
@@ -132,6 +135,7 @@ public class CSVService {
                 masterClasser.getFullName() + "," +
                 masterClasser.getTelephoneNumber() + "," +
                 masterClasser.getEmail() + "," +
-                masterClasser.getFieldManager().getOid();
+                masterClasser.getFieldManager().getOid() + "," +
+                specializationString;
     }
 }
