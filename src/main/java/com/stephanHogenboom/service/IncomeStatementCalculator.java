@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class IncomeStatementCalculator {
@@ -15,20 +14,15 @@ public class IncomeStatementCalculator {
     private final int monthsPerRaise = 6;
     private final int bonusPerRaise = 150;
 
-    public HashMap<MasterClasser, HashMap<String, Integer>> getIncomseStatementsForMasterClasser(List<MasterClasser> mcs) {
-        HashMap<MasterClasser, HashMap<String, Integer>> statementsOverMcs = new HashMap<>();
-        List<HashMap<MasterClasser, HashMap<String, Integer>>> mapList = mcs.
+    public List<HashMap<MasterClasser, HashMap<String, Integer>>> getIncomseStatementsForMasterClasser(List<MasterClasser> mcs) {
+       return mcs.
                 stream()
-                .map(this::caculateIncomeStatementCurrentDayWithMc)
+                .map(this::addIncomeStatementToMasterClasser)
                 .collect(Collectors.toList());
-
-        mapList.forEach(map -> statementsOverMcs.putAll(map.entrySet().stream()
-                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))));
-        return statementsOverMcs;
     }
 
 
-    HashMap<MasterClasser, HashMap<String, Integer>> caculateIncomeStatementCurrentDayWithMc(MasterClasser mc) {
+    HashMap<MasterClasser, HashMap<String, Integer>> addIncomeStatementToMasterClasser(MasterClasser mc) {
         HashMap<MasterClasser, HashMap<String, Integer>> incomeStatementForMasterClasser = new HashMap<>();
         incomeStatementForMasterClasser.put(mc, caculateIncomeStatementCurrentDay(mc));
         return incomeStatementForMasterClasser;
