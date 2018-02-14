@@ -54,6 +54,9 @@ public class CompanyOverviewScreen {
     }
 
     private void setMasterClassersView(Company company) {
+        if (company == null) {
+            return;
+        }
         List<MasterClasser> list = dao
                 .getAllMasterClassers()
                 .stream()

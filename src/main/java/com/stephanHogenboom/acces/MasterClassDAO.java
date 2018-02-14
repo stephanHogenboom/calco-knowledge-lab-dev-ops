@@ -220,6 +220,10 @@ public class MasterClassDAO extends GeneralDAO {
         return fieldManagers;
     }
 
+    //TODO implement method
+    public void insertCompany(String companyName) {
+
+    }
 
     public void addSpecialization(String specialization) {
         //TODO add funcionality for this function
