@@ -20,7 +20,7 @@ import java.util.List;
 
 
 public class JobTypesScreen {
-    private ListView<JobType> jobs = new ListView();
+    private ListView<JobType> jobs = new ListView<>();
     private ListView<MasterClasser> masterClasserWithThisJobType = new ListView<>();
     private MasterClassDAO dao = new MasterClassDAO();
     private PieChart pieChart;
@@ -67,7 +67,8 @@ public class JobTypesScreen {
     private PieChart getMasterClasserOvertJobTypePieChart() {
         HashMap<String, Integer> jobTypes = new HashMap<>();
         List<PieChart.Data> dataList = new ArrayList<>();
-
+        jobs.getItems().clear();
+        jobs.getItems().addAll(dao.getAllJobTypes());
         dao.getAllMasterClassers()
                 .forEach(employee -> jobTypes.compute(employee.getJobType().getName(), (k,v) -> v == null ? 1 : v+1));
 

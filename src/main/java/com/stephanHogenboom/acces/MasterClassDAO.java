@@ -228,7 +228,7 @@ public class MasterClassDAO extends GeneralDAO {
     }
 
     public void insertJobType(String name) {
-        String sql = "Insert into address job_type VALUES (?, ?);";
+        String sql = "Insert into job_type VALUES (?, ?);";
         try (PreparedStatement stmnt = connection.prepareStatement(sql)) {
             stmnt.setInt(1, incrementAndGetMaxId("job_type"));
             stmnt.setString(2,name);
