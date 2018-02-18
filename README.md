@@ -26,13 +26,14 @@ https://dillinger.io/
 
 | nummer | opdracht | code geschreven + test  | unit test| comments|
 |:--|:---------:|-----------------------:|---------:|--------:|
-|1  | Kleur van tabs veranderen  | 10|nvt|3|
-|2.0| Toevoegen master classer        |||
-|2.1| verifiëer dat email adress een @ bevat | 5 | 3| 2| 
+|1  |Kleur van tabs veranderen  | 10|nvt|3|
+|2.0|Toevoegen master classer        |||
+|2.1|verifiëer dat email adress een @ bevat | 5 | 3| 2| 
 |2.2|verifiëer dat email adress een . bevat  | 5 | 3| 2| 
 |2.3|verifiëer dat email adress eerst tekst bevat, daarna een @, vervolgens tekst, een punt en tot slot 2 tot 5 letters | 10 | 6| 4|
 |2.4|verifiëer dat een telefoon nummer precies 10 cijfers heeft | 5| 3|2|
 |2.5|verifiëer dat een telefoon nummer precies elf tekens heeft mits het één streepje bevat| 5 | 3| 2|
+|2.6|verifiëer dat de postcode in het juioste formaat wordt opgegeven| 10| 3| 2|
 |3|het kunnen toevoegen van een job-type | 15| nvt | 10|
 |4|het toevoegen van een company (inclusief database layer)| 45 | nvt| 15|
 |5|In het rapport een kolom toevoegen met het address van de master classer | 20| 7| 3|
@@ -49,6 +50,7 @@ https://dillinger.io/
 
 2. - Gebruik de MasterClasserHelper class om de email addressen te valideren en roep deze class vervolgens weer aan vanaf AddMasterClasseScreen regel 133. Gebruik de MasterClasserHelperTest class om je code te unit testen.  
    - Doe hetzelfde voor de telefoonnummers 
+   - gebruik voor de postcode de addresHelper class en test class
 3. De master classer dao (Data Access Object) heeft al een methode om een jobtype toe te voegen aan de databaseJe hoeft deze methode alleen nog aan te roepen vanuit het JobTypesScreen
 4. Om een Company toe te voegen moet je eerst een methode schrijven in de master classer dao (Data Access Object) die een company toevoegt. Hint: kijk naar andere methodes die iets soortgelijks doen. Roep je zelf gemaakte methode vervolgens aan vanuit het CompanyOverviewScreen.
 5. Zorg ervoor dat er een colum met het address van de master classer in het rapport komt: in het formaat: adress huisnummer toevoeging, postcode stad. Bijvoorbeeld voorbeeld Spinozalaan 25a, 2273RN Voorburg. 
