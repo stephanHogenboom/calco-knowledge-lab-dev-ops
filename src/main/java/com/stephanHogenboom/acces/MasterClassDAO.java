@@ -28,6 +28,7 @@ public class MasterClassDAO extends GeneralDAO {
         return companies;
     }
 
+
     private Company getCompanyByOid(int oid) {
         String sql = String.format("SELECT * FROM company where oid = %s;", oid);
         try (Statement stmnt = connection.createStatement();
@@ -223,7 +224,21 @@ public class MasterClassDAO extends GeneralDAO {
     //TODO implement method
     public void insertCompany(String companyName) {
 
+
     }
+
+    public void insertJobType(String name) {
+        String sql = "Insert into address job_type VALUES (?, ?);";
+        try (PreparedStatement stmnt = connection.prepareStatement(sql)) {
+            stmnt.setInt(1, incrementAndGetMaxId("job_type"));
+            stmnt.setString(2,name);
+            stmnt.execute();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 
     public void addSpecialization(String specialization) {
         //TODO add funcionality for this function
