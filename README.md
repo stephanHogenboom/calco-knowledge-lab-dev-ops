@@ -37,17 +37,22 @@ https://dillinger.io/
 |4|het toevoegen van een company (inclusief database layer)| 45 | nvt| 15|
 |5|In het rapport een kolom toevoegen met het address van de master classer | 20| 7| 3|
 |6|Velden toevoegen aan master classer scherm:  |   | |
-|7|field manager| 10| nvt | 2|
-|8|specialisaties| 10| nvt | 2|
-|9|Prio één indien niet opgelosd| -75 |nvt | 5 |
+|6.1|field manager| 10| nvt | 2|
+|6.2|specialisaties| 10| nvt | 2|
+|7|Prio één indien niet opgelosd| -75 |nvt | 5 |
 
 
 
 ### uitleg van opdrachten
 
 1. Pas de html of liever de css van de betreffende elementen aan.  
-2. 
 
+2. - Gebruik de MasterClasserHelper class om de email addressen te valideren en roep deze class vervolgens weer aan vanaf AddMasterClasseScreen regel 133. Gebruik de MasterClasserHelperTest class om je code te unit testen.  
+   - Doe hetzelfde voor de telefoonnummers 
+3. De master classer dao (Data Access Object) heeft al een methode om een jobtype toe te voegen aan de databaseJe hoeft deze methode alleen nog aan te roepen vanuit het JobTypesScreen
+4. Om een Company toe te voegen moet je eerst een methode schrijven in de master classer dao (Data Access Object) die een company toevoegt. Hint: kijk naar andere methodes die iets soortgelijks doen. Roep je zelf gemaakte methode vervolgens aan vanuit het CompanyOverviewScreen.
+5. Zorg ervoor dat er een colum met het address van de master classer in het rapport komt: in het formaat: adress huisnummer toevoeging, postcode stad. Bijvoorbeeld voorbeeld Spinozalaan 25a, 2273RN Voorburg. 
+6. Zorg ervoor dat de info die in de lijst van master classers zit in labels terecht komt in het MasterClasserOverViewScreen
 
 
 

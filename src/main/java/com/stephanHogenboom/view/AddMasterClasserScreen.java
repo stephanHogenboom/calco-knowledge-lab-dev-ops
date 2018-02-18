@@ -4,6 +4,7 @@ import com.stephanHogenboom.acces.MasterClassDAO;
 import com.stephanHogenboom.elements.AlertBox;
 import com.stephanHogenboom.model.*;
 import com.stephanHogenboom.util.AddressHelper;
+import com.stephanHogenboom.util.MasterClasserHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -34,6 +35,7 @@ public class AddMasterClasserScreen {
     private Company calco = new Company(0, "Calco");
     //TODO use address helper to verify data
     private AddressHelper addressHelper = new AddressHelper();
+    private MasterClasserHelper masterClasserHelper = new MasterClasserHelper();
 
 
 
