@@ -38,7 +38,7 @@ public class CompanyOverviewScreen {
         companies.setOnMouseClicked(e-> setMasterClassersView(companies.getSelectionModel().getSelectedItem()));
 
         //TODO insert method in masterclassDAO or other dao to add companies
-        addCompany.setOnAction(e -> AlertBox.display("error", "not yet implemented!"));
+        addCompany.setOnAction(e -> insertCompany());
 
         companyNameTextField.setMinWidth(250);
         companyNameTextField.setPromptText("enter company name");
@@ -69,17 +69,18 @@ public class CompanyOverviewScreen {
         masterClasserInThisCompany.getItems().addAll(list);
     }
 
-    private void insertCompany(Company company) {
-        // get name from textfield
-        // write insertQuery in dao class
-        // invoke dao -> database
-        // dont forget to autoincrement oid
+    private void insertCompany( ) {
+        //TODo implement me!!
+        AlertBox.display("Error", "Not implemented yet!");
     }
 
     public void refresh() {
+        this.companies.getItems().clear();
+        this.companies.getItems().addAll(dao.getAllCompanies());
         mcs = dao.getAllMasterClassers();
         masterClasserOvertCompanies = getMasterClasserOvertCompaniesPieCharet();
         companyScreen.setRight(masterClasserOvertCompanies);
+
     }
 
     private PieChart getMasterClasserOvertCompaniesPieCharet() {

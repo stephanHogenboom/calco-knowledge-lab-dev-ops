@@ -223,8 +223,6 @@ public class MasterClassDAO extends GeneralDAO {
 
     //TODO implement method
     public void insertCompany(String companyName) {
-
-
     }
 
     public void insertJobType(String name) {
