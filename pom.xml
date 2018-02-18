@@ -25,8 +25,9 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <source>1.9</source>
-                    <target>1.9</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <release>1.8</release>
                 </configuration>
             </plugin>
             <plugin>
@@ -105,7 +106,7 @@
         <dependency>
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
-            <version>9.0.0</version>
+            <version>8.40.14</version>
         </dependency>
 
     </dependencies>
